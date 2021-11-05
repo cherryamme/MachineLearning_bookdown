@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Data view | A R Book For MachineLearning</title>
+  <meta name="description" content="<p>This is a R book for learning ML authored by jesse.
+I use many common models to predict Titanic Data-Set from kaggle.
+Hope for helping you.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Data view | A R Book For MachineLearning" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a R book for learning ML authored by jesse.
+I use many common models to predict Titanic Data-Set from kaggle.
+Hope for helping you.</p>" />
+  <meta name="github-repo" content="cherryamme/R_MachineLearning_bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Data view | A R Book For MachineLearning" />
+  
+  <meta name="twitter:description" content="<p>This is a R book for learning ML authored by jesse.
+I use many common models to predict Titanic Data-Set from kaggle.
+Hope for helping you.</p>" />
+  
+
+<meta name="author" content="Jesse_姜辰 🤡" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="import-data.html"/>
+<link rel="next" href="eda-view-data.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">My First bookdown book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="package-i-use.html"><a href="package-i-use.html"><i class="fa fa-check"></i><b>2</b> Package I use</a></li>
+<li class="chapter" data-level="3" data-path="import-data.html"><a href="import-data.html"><i class="fa fa-check"></i><b>3</b> import Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="import-data.html"><a href="import-data.html#data-from"><i class="fa fa-check"></i><b>3.1</b> Data From</a></li>
+<li class="chapter" data-level="3.2" data-path="import-data.html"><a href="import-data.html#variable_explain"><i class="fa fa-check"></i><b>3.2</b> Variable_Explain</a></li>
+<li class="chapter" data-level="3.3" data-path="import-data.html"><a href="import-data.html#view-of-datasets"><i class="fa fa-check"></i><b>3.3</b> View of datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-view.html"><a href="data-view.html"><i class="fa fa-check"></i><b>4</b> Data view</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-view.html"><a href="data-view.html#data-report-overview"><i class="fa fa-check"></i><b>4.1</b> Data report overview</a></li>
+<li class="chapter" data-level="4.2" data-path="data-view.html"><a href="data-view.html#codebook-summary-table"><i class="fa fa-check"></i><b>4.2</b> Codebook summary table</a></li>
+<li class="chapter" data-level="4.3" data-path="data-view.html"><a href="data-view.html#variable-list"><i class="fa fa-check"></i><b>4.3</b> Variable list</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="data-view.html"><a href="data-view.html#passengerid"><i class="fa fa-check"></i><b>4.3.1</b> PassengerId</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-view.html"><a href="data-view.html#survived"><i class="fa fa-check"></i><b>4.3.2</b> Survived</a></li>
+<li class="chapter" data-level="4.3.3" data-path="data-view.html"><a href="data-view.html#pclass"><i class="fa fa-check"></i><b>4.3.3</b> Pclass</a></li>
+<li class="chapter" data-level="4.3.4" data-path="data-view.html"><a href="data-view.html#name"><i class="fa fa-check"></i><b>4.3.4</b> Name</a></li>
+<li class="chapter" data-level="4.3.5" data-path="data-view.html"><a href="data-view.html#sex"><i class="fa fa-check"></i><b>4.3.5</b> Sex</a></li>
+<li class="chapter" data-level="4.3.6" data-path="data-view.html"><a href="data-view.html#age"><i class="fa fa-check"></i><b>4.3.6</b> Age</a></li>
+<li class="chapter" data-level="4.3.7" data-path="data-view.html"><a href="data-view.html#sibsp"><i class="fa fa-check"></i><b>4.3.7</b> SibSp</a></li>
+<li class="chapter" data-level="4.3.8" data-path="data-view.html"><a href="data-view.html#parch"><i class="fa fa-check"></i><b>4.3.8</b> Parch</a></li>
+<li class="chapter" data-level="4.3.9" data-path="data-view.html"><a href="data-view.html#ticket"><i class="fa fa-check"></i><b>4.3.9</b> Ticket</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-view.html"><a href="data-view.html#fare"><i class="fa fa-check"></i><b>4.4</b> Fare</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="data-view.html"><a href="data-view.html#cabin"><i class="fa fa-check"></i><b>4.4.1</b> Cabin</a></li>
+<li class="chapter" data-level="4.4.2" data-path="data-view.html"><a href="data-view.html#embarked"><i class="fa fa-check"></i><b>4.4.2</b> Embarked</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="eda-view-data.html"><a href="eda-view-data.html"><i class="fa fa-check"></i><b>5</b> EDA —— View data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="eda-view-data.html"><a href="eda-view-data.html#simply-see-data"><i class="fa fa-check"></i><b>5.1</b> simply see data</a></li>
+<li class="chapter" data-level="5.2" data-path="eda-view-data.html"><a href="eda-view-data.html#missing-values-checking"><i class="fa fa-check"></i><b>5.2</b> Missing values checking</a></li>
+<li class="chapter" data-level="5.3" data-path="eda-view-data.html"><a href="eda-view-data.html#plot-missing-values-by-desctools"><i class="fa fa-check"></i><b>5.3</b> Plot Missing values By DescTools</a></li>
+<li class="chapter" data-level="5.4" data-path="eda-view-data.html"><a href="eda-view-data.html#plot-missing-values-by-dataexplorer"><i class="fa fa-check"></i><b>5.4</b> Plot Missing values By DataExplorer</a></li>
+<li class="chapter" data-level="5.5" data-path="eda-view-data.html"><a href="eda-view-data.html#values-distribution-checking"><i class="fa fa-check"></i><b>5.5</b> values distribution checking</a></li>
+<li class="chapter" data-level="5.6" data-path="eda-view-data.html"><a href="eda-view-data.html#correlation-among-variables"><i class="fa fa-check"></i><b>5.6</b> Correlation among variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="impute-missing-data.html"><a href="impute-missing-data.html"><i class="fa fa-check"></i><b>6</b> impute missing data</a></li>
+<li class="chapter" data-level="7" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html"><i class="fa fa-check"></i><b>7</b> Mod Build by randomForest</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#if-test-data-has-new-factor-levels"><i class="fa fa-check"></i><b>7.1</b> If test data has New factor levels ?</a></li>
+<li class="chapter" data-level="7.2" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#clean-new-level"><i class="fa fa-check"></i><b>7.2</b> clean new level</a></li>
+<li class="chapter" data-level="7.3" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#build-randomforest-model"><i class="fa fa-check"></i><b>7.3</b> build randomForest Model</a></li>
+<li class="chapter" data-level="7.4" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#model-assessment"><i class="fa fa-check"></i><b>7.4</b> Model assessment</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cherryamme" target="blank">Published By Jesse</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A R Book For MachineLearning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-view" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Data view</h1>
+<p>As we all know, we need to convert a character type variable to a factor type if the column is a category column.
+checking data_column definition and data type in column can help us make a decision .
+After checking we change some column to factor</p>
+<p><strong>train</strong></p>
+<pre><code>## # A tibble: 891 × 12
+##    PassengerId Survived Pclass Name                                                Sex      Age SibSp Parch Ticket            Fare Cabin Embarked
+##          &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;chr&gt;                                               &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;   
+##  1           1 0        3      Braund, Mr. Owen Harris                             male      22 1     0     A/5 21171         7.25 &lt;NA&gt;  S       
+##  2           2 1        1      Cumings, Mrs. John Bradley (Florence Briggs Thayer) female    38 1     0     PC 17599         71.3  C85   C       
+##  3           3 1        3      Heikkinen, Miss. Laina                              female    26 0     0     STON/O2. 3101282  7.92 &lt;NA&gt;  S       
+##  4           4 1        1      Futrelle, Mrs. Jacques Heath (Lily May Peel)        female    35 1     0     113803           53.1  C123  S       
+##  5           5 0        3      Allen, Mr. William Henry                            male      35 0     0     373450            8.05 &lt;NA&gt;  S       
+##  6           6 0        3      Moran, Mr. James                                    male      NA 0     0     330877            8.46 &lt;NA&gt;  Q       
+##  7           7 0        1      McCarthy, Mr. Timothy J                             male      54 0     0     17463            51.9  E46   S       
+##  8           8 0        3      Palsson, Master. Gosta Leonard                      male       2 3     1     349909           21.1  &lt;NA&gt;  S       
+##  9           9 1        3      Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)   female    27 0     2     347742           11.1  &lt;NA&gt;  S       
+## 10          10 1        2      Nasser, Mrs. Nicholas (Adele Achem)                 female    14 1     0     237736           30.1  &lt;NA&gt;  C       
+## # … with 881 more rows</code></pre>
+<p><strong>test</strong></p>
+<pre><code>## # A tibble: 418 × 11
+##    PassengerId Pclass Name                                         Sex      Age SibSp Parch Ticket     Fare Cabin Embarked
+##          &lt;dbl&gt; &lt;fct&gt;  &lt;chr&gt;                                        &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;   
+##  1         892 3      Kelly, Mr. James                             male    34.5 0     0     330911     7.83 &lt;NA&gt;  Q       
+##  2         893 3      Wilkes, Mrs. James (Ellen Needs)             female  47   1     0     363272     7    &lt;NA&gt;  S       
+##  3         894 2      Myles, Mr. Thomas Francis                    male    62   0     0     240276     9.69 &lt;NA&gt;  Q       
+##  4         895 3      Wirz, Mr. Albert                             male    27   0     0     315154     8.66 &lt;NA&gt;  S       
+##  5         896 3      Hirvonen, Mrs. Alexander (Helga E Lindqvist) female  22   1     1     3101298   12.3  &lt;NA&gt;  S       
+##  6         897 3      Svensson, Mr. Johan Cervin                   male    14   0     0     7538       9.22 &lt;NA&gt;  S       
+##  7         898 3      Connolly, Miss. Kate                         female  30   0     0     330972     7.63 &lt;NA&gt;  Q       
+##  8         899 2      Caldwell, Mr. Albert Francis                 male    26   1     1     248738    29    &lt;NA&gt;  S       
+##  9         900 3      Abrahim, Mrs. Joseph (Sophie Halaut Easu)    female  18   0     0     2657       7.23 &lt;NA&gt;  C       
+## 10         901 3      Davies, Mr. John Samuel                      male    21   2     0     A/4 48871 24.2  &lt;NA&gt;  S       
+## # … with 408 more rows</code></pre>
+<div id="data-report-overview" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Data report overview</h2>
+<p>The dataset examined has the following dimensions:</p>
+<table style="width:47%;">
+<colgroup>
+<col width="34%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Number of observations</td>
+<td align="right">891</td>
+</tr>
+<tr class="even">
+<td align="left">Number of variables</td>
+<td align="right">12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="codebook-summary-table" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Codebook summary table</h2>
+<table style="width:100%;">
+<colgroup>
+<col width="10%" />
+<col width="26%" />
+<col width="16%" />
+<col width="14%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Label</th>
+<th align="left">Variable</th>
+<th align="left">Class</th>
+<th align="right"># unique
+values</th>
+<th align="center">Missing</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#passengerid">PassengerId</a></strong></td>
+<td align="left">numeric</td>
+<td align="right">891</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#survived">Survived</a></strong></td>
+<td align="left">factor</td>
+<td align="right">2</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#pclass">Pclass</a></strong></td>
+<td align="left">factor</td>
+<td align="right">3</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#name">Name</a></strong></td>
+<td align="left">character</td>
+<td align="right">891</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#sex">Sex</a></strong></td>
+<td align="left">factor</td>
+<td align="right">2</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#age">Age</a></strong></td>
+<td align="left">numeric</td>
+<td align="right">89</td>
+<td align="center">19.87 %</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#sibsp">SibSp</a></strong></td>
+<td align="left">factor</td>
+<td align="right">7</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#parch">Parch</a></strong></td>
+<td align="left">factor</td>
+<td align="right">7</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#ticket">Ticket</a></strong></td>
+<td align="left">character</td>
+<td align="right">681</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#fare">Fare</a></strong></td>
+<td align="left">numeric</td>
+<td align="right">248</td>
+<td align="center">0.00 %</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#cabin">Cabin</a></strong></td>
+<td align="left">character</td>
+<td align="right">148</td>
+<td align="center">77.10 %</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><strong><a href="data-view.html#embarked">Embarked</a></strong></td>
+<td align="left">factor</td>
+<td align="right">4</td>
+<td align="center">0.22 %</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="variable-list" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Variable list</h2>
+<div id="passengerid" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> PassengerId</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:57%;">
+<colgroup>
+<col width="36%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">891</td>
+</tr>
+<tr class="even">
+<td align="left">Median</td>
+<td align="right">446</td>
+</tr>
+<tr class="odd">
+<td align="left">1st and 3rd quartiles</td>
+<td align="right">223.5; 668.5</td>
+</tr>
+<tr class="even">
+<td align="left">Min. and max.</td>
+<td align="right">1; 891</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-1-PassengerId-1.png" width="384" /></p>
+</div>
+</div>
+<hr />
+</div>
+<div id="survived" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Survived</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:50%;">
+<colgroup>
+<col width="36%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“0”</td>
+</tr>
+<tr class="odd">
+<td align="left">Reference category</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-2-Survived-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "0", "1".</li>
+</ul>
+<hr />
+</div>
+<div id="pclass" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Pclass</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:50%;">
+<colgroup>
+<col width="36%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“3”</td>
+</tr>
+<tr class="odd">
+<td align="left">Reference category</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-3-Pclass-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "1", "2", "3".</li>
+</ul>
+<hr />
+</div>
+<div id="name" class="section level3" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Name</h3>
+<ul>
+<li>The variable is a key (distinct values for each observation).</li>
+</ul>
+<hr />
+</div>
+<div id="sex" class="section level3" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Sex</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:50%;">
+<colgroup>
+<col width="36%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“male”</td>
+</tr>
+<tr class="odd">
+<td align="left">Reference category</td>
+<td align="right">male</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-5-Sex-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "female", "male".</li>
+</ul>
+<hr />
+</div>
+<div id="age" class="section level3" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Age</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:58%;">
+<colgroup>
+<col width="36%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">177 (19.87 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">88</td>
+</tr>
+<tr class="even">
+<td align="left">Median</td>
+<td align="right">28</td>
+</tr>
+<tr class="odd">
+<td align="left">1st and 3rd quartiles</td>
+<td align="right">20.12; 38</td>
+</tr>
+<tr class="even">
+<td align="left">Min. and max.</td>
+<td align="right">0.42; 80</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-6-Age-1.png" width="384" /></p>
+</div>
+</div>
+<hr />
+</div>
+<div id="sibsp" class="section level3" number="4.3.7">
+<h3><span class="header-section-number">4.3.7</span> SibSp</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:50%;">
+<colgroup>
+<col width="36%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“0”</td>
+</tr>
+<tr class="odd">
+<td align="left">Reference category</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-7-SibSp-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "0", "1", "2", "3", "4", "5", "8".</li>
+</ul>
+<hr />
+</div>
+<div id="parch" class="section level3" number="4.3.8">
+<h3><span class="header-section-number">4.3.8</span> Parch</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:50%;">
+<colgroup>
+<col width="36%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“0”</td>
+</tr>
+<tr class="odd">
+<td align="left">Reference category</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-8-Parch-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "0", "1", "2", "3", "4", "5", "6".</li>
+</ul>
+<hr />
+</div>
+<div id="ticket" class="section level3" number="4.3.9">
+<h3><span class="header-section-number">4.3.9</span> Ticket</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:53%;">
+<colgroup>
+<col width="36%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">character</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">681</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“1601”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-9-Ticket-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "110152", "110413", "110465", "110564", "110813", "111240", "111320", "111361", "111369", "111426", "111427", "111428", "112050", "112052", "112053", "112058", "112059", "112277", "112379", "113028", "113043", "113050", "113051", "113055", "113056", "113059", "113501", "113503", "113505", "113509", "113510", "113514", "113572", "113760", "113767", "113773", "113776", "113781", "113783", "113784", "113786", "113787", "113788", "113789", "113792", "113794", "113796", "113798", "113800", "113803", "113804", "113806", "113807", "11668", "11751", "11752", "11753", "11755", "11765", "11767", "11769", "11771", "11774", "11813", "11967", "12233", "12460", "12749", "13049", "13213", "13214", "13502", "13507", "13509", "13567", "13568", "14311", "14312", "14313", "14973", "1601", "16966", "16988", "17421", "17453", "17463", "17464", "17465", "17466", "17474", "17764", "19877", "19928", "19943", "19947", "19950", "19952", "19972", "19988", "19996", "2003", "211536", "21440", "218629", "219533", "220367", "220845", "2223", "223596", "226593", "226875", "228414", "229236", "230080", "230136", "230433", "230434", "231919", "231945", "233639", "233866", "234360", "234604", "234686", "234818", "236171", "236852", "236853", "237442", "237565", "237668", "237671", "237736", "237789", "237798", "239853", "239854", "239855", "239856", "239865", "240929", "24160", "243847", "243880", "244252", "244270", "244278", "244310", "244358", "244361", "244367", "244373", "248698", "248706", "248723", "248727", "248731", "248733", "248738", "248740", "248747", "250643", "250644", "250646", "250647", "250648", "250649", "250651", "250652", "250653", "250655", "2620", "2623", "2624", "2625", "2626", "2627", "2628", "2629", "2631", "26360", "2641", "2647", "2648", "2649", "2650", "2651", "2653", "2659", "2661", "2662", "2663", "2664", "2665", "2666", "2667", "2668", "2669", "26707", "2671", "2672", "2674", "2677", "2678", "2680", "2683", "2685", "2686", "2687", "2689", "2690", "2691", "2693", "2694", "2695", "2697", "2699", "2700", "27042", "27267", "27849", "28134", "28206", "28213", "28220", "28228", "28403", "28424", "28425", "28551", "28664", "28665", "29011", "2908", "29103", "29104", "29105", "29106", "29108", "2926", "29750", "29751", "3101264", "3101265", "3101267", "3101276", "3101277", "3101278", "3101281", "3101295", "3101296", "3101298", "31027", "31028", "312991", "312992", "312993", "31418", "315037", "315082", "315084", "315086", "315088", "315089", "315090", "315093", "315094", "315096", "315097", "315098", "315151", "315153", "323592", "323951", "324669", "330877", "330909", "330919", "330923", "330931", "330932", "330935", "330958", "330959", "330979", "330980", "334912", "335097", "335677", "33638", "336439", "3411", "341826", "34218", "342826", "343095", "343120", "343275", "343276", "345364", "345572", "345763", "345764", "345765", "345767", "345769", "345770", "345773", "345774", "345777", "345778", "345779", "345780", "345781", "345783", "3460", "347054", "347060", "347061", "347062", "347063", "347064", "347067", "347068", "347069", "347071", "347073", "347074", "347076", "347077", "347078", "347080", "347081", "347082", "347083", "347085", "347087", "347088", "347089", "3474", "347464", "347466", "347468", "347470", "347742", "347743", "348121", "348123", "348124", "349201", "349203", "349204", "349205", "349206", "349207", "349208", "349209", "349210", "349212", "349213", "349214", "349215", "349216", "349217", "349218", "349219", "349221", "349222", "349223", "349224", "349225", "349227", "349228", "349231", "349233", "349234", "349236", "349237", "349239", "349240", "349241", "349242", "349243", "349244", "349245", "349246", "349247", "349248", "349249", "349251", "349252", "349253", "349254", "349256", "349257", "349909", "349910", "349912", "350025", "350026", "350029", "350034", "350035", "350036", "350042", "350043", "350046", "350047", "350048", "350050", "350052", "350060", "350404", "350406", "350407", "350417", "35273", "35281", "35851", "35852", "358585", "36209", "362316", "363291", "363294", "363592", "364498", "364499", "364500", "364506", "364511", "364512", "364516", "364846", "364848", "364849", "364850", "364851", "365222", "365226", "36568", "367226", "367228", "367229", "367230", "367231", "367232", "367655", "368323", "36864", "36865", "36866", "368703", "36928", "36947", "36963", "36967", "36973", "370129", "370365", "370369", "370370", "370371", "370372", "370373", "370375", "370376", "370377", "371060", "371110", "371362", "372622", "373450", "374746", "374887", "374910", "376564", "376566", "382649", "382651", "382652", "383121", "384461", "386525", "392091", "392092", "392096", "394140", "4133", "4134", "4135", "4136", "4137", "4138", "4579", "54636", "5727", "65303", "65304", "65306", "6563", "693", "695", "7267", "7534", "7540", "7545", "7546", "7552", "7553", "7598", "8471", "8475", "9234", "A./5. 2152", "A./5. 3235", "A.5. 11206", "A.5. 18509", "A/4 45380", "A/4 48871", "A/4. 20589", "A/4. 34244", "A/4. 39886", "A/5 21171", "A/5 21172", "A/5 21173", "A/5 21174", "A/5 2466", "A/5 2817", "A/5 3536", "A/5 3540", "A/5 3594", "A/5 3902", "A/5. 10482", "A/5. 13032", "A/5. 2151", "A/5. 3336", "A/5. 3337", "A/5. 851", "A/S 2816", "A4. 54510", "C 17369", "C 4001", "C 7075", "C 7076", "C 7077", "C.A. 17248", "C.A. 18723", "C.A. 2315", "C.A. 24579", "C.A. 24580", "C.A. 2673", "C.A. 29178", "C.A. 29395", "C.A. 29566", "C.A. 31026", "C.A. 31921", "C.A. 33111", "C.A. 33112", "C.A. 33595", "C.A. 34260", "C.A. 34651", "C.A. 37671", "C.A. 5547", "C.A. 6212", "C.A./SOTON 34068", "CA 2144", "CA. 2314", "CA. 2343", "F.C. 12750", "F.C.C. 13528", "F.C.C. 13529", "F.C.C. 13531", "Fa 265302", "LINE", "P/PP 3381", "PC 17318", "PC 17473", "PC 17474", "PC 17475", "PC 17476", "PC 17477", "PC 17482", "PC 17483", "PC 17485", "PC 17558", "PC 17569", "PC 17572", "PC 17582", "PC 17585", "PC 17590", "PC 17592", "PC 17593", "PC 17595", "PC 17596", "PC 17597", "PC 17599", "PC 17600", "PC 17601", "PC 17603", "PC 17604", "PC 17605", "PC 17608", "PC 17609", "PC 17610", "PC 17611", "PC 17612", "PC 17754", "PC 17755", "PC 17756", "PC 17757", "PC 17758", "PC 17759", "PC 17760", "PC 17761", "PP 4348", "PP 9549", "S.C./A.4. 23567", "S.C./PARIS 2079", "S.O./P.P. 3", "S.O./P.P. 751", "S.O.C. 14879", "S.O.P. 1166", "S.P. 3464", "S.W./PP 752", "SC 1748", "SC/AH 29037", "SC/AH 3085", "SC/AH Basle 541", "SC/Paris 2123", "SC/PARIS 2131", "SC/PARIS 2133", "SC/PARIS 2146", "SC/PARIS 2149", "SC/Paris 2163", "SC/PARIS 2167", "SCO/W 1585", "SO/C 14885", "SOTON/O.Q. 3101305", "SOTON/O.Q. 3101306", "SOTON/O.Q. 3101307", "SOTON/O.Q. 3101310", "SOTON/O.Q. 3101311", "SOTON/O.Q. 3101312", "SOTON/O.Q. 392078", "SOTON/O.Q. 392087", "SOTON/O2 3101272", "SOTON/O2 3101287", "SOTON/OQ 3101316", "SOTON/OQ 3101317", "SOTON/OQ 392076", "SOTON/OQ 392082", "SOTON/OQ 392086", "SOTON/OQ 392089", "SOTON/OQ 392090", "STON/O 2. 3101269", "STON/O 2. 3101273", "STON/O 2. 3101274", "STON/O 2. 3101275", "STON/O 2. 3101280", "STON/O 2. 3101285", "STON/O 2. 3101286", "STON/O 2. 3101288", "STON/O 2. 3101289", "STON/O 2. 3101292", "STON/O 2. 3101293", "STON/O 2. 3101294", "STON/O2. 3101271", "STON/O2. 3101279", "STON/O2. 3101282", "STON/O2. 3101283", "STON/O2. 3101290", "SW/PP 751", "W./C. 14258", "W./C. 14263", "W./C. 6607", "W./C. 6608", "W./C. 6609", "W.E.P. 5734", "W/C 14208", "WE/P 5735".</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="fare" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Fare</h2>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:53%;">
+<colgroup>
+<col width="36%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">0 (0 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">248</td>
+</tr>
+<tr class="even">
+<td align="left">Median</td>
+<td align="right">14.45</td>
+</tr>
+<tr class="odd">
+<td align="left">1st and 3rd quartiles</td>
+<td align="right">7.91; 31</td>
+</tr>
+<tr class="even">
+<td align="left">Min. and max.</td>
+<td align="right">0; 512.33</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-10-Fare-1.png" width="384" /></p>
+</div>
+</div>
+<hr />
+<div id="cabin" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Cabin</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:57%;">
+<colgroup>
+<col width="36%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">character</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">687 (77.1 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">147</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“B96 B98”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-11-Cabin-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "A10", "A14", "A16", "A19", "A20", "A23", "A24", "A26", "A31", "A32", "A34", "A36", "A5", "A6", "A7", "B101", "B102", "B18", "B19", "B20", "B22", "B28", "B3", "B30", "B35", "B37", "B38", "B39", "B4", "B41", "B42", "B49", "B5", "B50", "B51 B53 B55", "B57 B59 B63 B66", "B58 B60", "B69", "B71", "B73", "B77", "B78", "B79", "B80", "B82 B84", "B86", "B94", "B96 B98", "C101", "C103", "C104", "C106", "C110", "C111", "C118", "C123", "C124", "C125", "C126", "C128", "C148", "C2", "C22 C26", "C23 C25 C27", "C30", "C32", "C45", "C46", "C47", "C49", "C50", "C52", "C54", "C62 C64", "C65", "C68", "C7", "C70", "C78", "C82", "C83", "C85", "C86", "C87", "C90", "C91", "C92", "C93", "C95", "C99", "D", "D10 D12", "D11", "D15", "D17", "D19", "D20", "D21", "D26", "D28", "D30", "D33", "D35", "D36", "D37", "D45", "D46", "D47", "D48", "D49", "D50", "D56", "D6", "D7", "D9", "E10", "E101", "E12", "E121", "E17", "E24", "E25", "E31", "E33", "E34", "E36", "E38", "E40", "E44", "E46", "E49", "E50", "E58", "E63", "E67", "E68", "E77", "E8", "F E69", "F G63", "F G73", "F2", "F33", "F38", "F4", "G6", "T".</li>
+</ul>
+<hr />
+</div>
+<div id="embarked" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Embarked</h3>
+<div class="row">
+<div class="col-lg-8">
+<table style="width:54%;">
+<colgroup>
+<col width="36%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feature</th>
+<th align="right">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Variable type</td>
+<td align="right">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Number of missing obs.</td>
+<td align="right">2 (0.22 %)</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of unique values</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Mode</td>
+<td align="right">“S”</td>
+</tr>
+<tr class="odd">
+<td align="left">Reference category</td>
+<td align="right">S</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-lg-4">
+<p><img src="_main_files/figure-html/Var-12-Embarked-1.png" width="384" /></p>
+</div>
+</div>
+<ul>
+<li>Observed factor levels: "C", "Q", "S".</li>
+</ul>
+<hr />
+<p>Report generation information:</p>
+<ul>
+<li><p>Created by: Cherryamme (username: <code>cherryamme</code>).</p></li>
+<li><p>Report creation time: Thu Nov 04 2021 21:21:15</p></li>
+<li><p>Report was run from directory: <code>/Users/cherryamme/Desktop/MachineLearning_bookdown</code></p></li>
+<li><p>dataReporter v1.0.0 [Pkg: 2021-11-02 from Github (<a href="mailto:ekstroem/dataReporter@fe844ba" class="email">ekstroem/dataReporter@fe844ba</a>)]</p></li>
+<li><p>R version 4.1.1 (2021-08-10).</p></li>
+<li><p>Platform: x86_64-apple-darwin20.4.0 (64-bit)(macOS Big Sur 11.5).</p></li>
+<li><p>Function call: <code>dataReporter::makeDataReport(data = train, mode = c("summarize",  "visualize", "check"), smartNum = FALSE, file = "codebook_train.Rmd",      checks = list(character = "showAllFactorLevels", factor = "showAllFactorLevels",          labelled = "showAllFactorLevels", haven_labelled = "showAllFactorLevels",          numeric = NULL, integer = NULL, logical = NULL, Date = NULL),      listChecks = FALSE, maxProbVals = Inf, codebook = TRUE, reportTitle = "Codebook for train")</code></p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="import-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="eda-view-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-data_Overview.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

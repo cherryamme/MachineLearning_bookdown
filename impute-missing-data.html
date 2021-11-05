@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 impute missing data | A R Book For MachineLearning</title>
+  <meta name="description" content="<p>This is a R book for learning ML authored by jesse.
+I use many common models to predict Titanic Data-Set from kaggle.
+Hope for helping you.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 impute missing data | A R Book For MachineLearning" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a R book for learning ML authored by jesse.
+I use many common models to predict Titanic Data-Set from kaggle.
+Hope for helping you.</p>" />
+  <meta name="github-repo" content="cherryamme/R_MachineLearning_bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 impute missing data | A R Book For MachineLearning" />
+  
+  <meta name="twitter:description" content="<p>This is a R book for learning ML authored by jesse.
+I use many common models to predict Titanic Data-Set from kaggle.
+Hope for helping you.</p>" />
+  
+
+<meta name="author" content="Jesse_姜辰 🤡" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="eda-view-data.html"/>
+<link rel="next" href="mod-build-by-randomforest.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">My First bookdown book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="package-i-use.html"><a href="package-i-use.html"><i class="fa fa-check"></i><b>2</b> Package I use</a></li>
+<li class="chapter" data-level="3" data-path="import-data.html"><a href="import-data.html"><i class="fa fa-check"></i><b>3</b> import Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="import-data.html"><a href="import-data.html#data-from"><i class="fa fa-check"></i><b>3.1</b> Data From</a></li>
+<li class="chapter" data-level="3.2" data-path="import-data.html"><a href="import-data.html#variable_explain"><i class="fa fa-check"></i><b>3.2</b> Variable_Explain</a></li>
+<li class="chapter" data-level="3.3" data-path="import-data.html"><a href="import-data.html#view-of-datasets"><i class="fa fa-check"></i><b>3.3</b> View of datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-view.html"><a href="data-view.html"><i class="fa fa-check"></i><b>4</b> Data view</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-view.html"><a href="data-view.html#data-report-overview"><i class="fa fa-check"></i><b>4.1</b> Data report overview</a></li>
+<li class="chapter" data-level="4.2" data-path="data-view.html"><a href="data-view.html#codebook-summary-table"><i class="fa fa-check"></i><b>4.2</b> Codebook summary table</a></li>
+<li class="chapter" data-level="4.3" data-path="data-view.html"><a href="data-view.html#variable-list"><i class="fa fa-check"></i><b>4.3</b> Variable list</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="data-view.html"><a href="data-view.html#passengerid"><i class="fa fa-check"></i><b>4.3.1</b> PassengerId</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-view.html"><a href="data-view.html#survived"><i class="fa fa-check"></i><b>4.3.2</b> Survived</a></li>
+<li class="chapter" data-level="4.3.3" data-path="data-view.html"><a href="data-view.html#pclass"><i class="fa fa-check"></i><b>4.3.3</b> Pclass</a></li>
+<li class="chapter" data-level="4.3.4" data-path="data-view.html"><a href="data-view.html#name"><i class="fa fa-check"></i><b>4.3.4</b> Name</a></li>
+<li class="chapter" data-level="4.3.5" data-path="data-view.html"><a href="data-view.html#sex"><i class="fa fa-check"></i><b>4.3.5</b> Sex</a></li>
+<li class="chapter" data-level="4.3.6" data-path="data-view.html"><a href="data-view.html#age"><i class="fa fa-check"></i><b>4.3.6</b> Age</a></li>
+<li class="chapter" data-level="4.3.7" data-path="data-view.html"><a href="data-view.html#sibsp"><i class="fa fa-check"></i><b>4.3.7</b> SibSp</a></li>
+<li class="chapter" data-level="4.3.8" data-path="data-view.html"><a href="data-view.html#parch"><i class="fa fa-check"></i><b>4.3.8</b> Parch</a></li>
+<li class="chapter" data-level="4.3.9" data-path="data-view.html"><a href="data-view.html#ticket"><i class="fa fa-check"></i><b>4.3.9</b> Ticket</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-view.html"><a href="data-view.html#fare"><i class="fa fa-check"></i><b>4.4</b> Fare</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="data-view.html"><a href="data-view.html#cabin"><i class="fa fa-check"></i><b>4.4.1</b> Cabin</a></li>
+<li class="chapter" data-level="4.4.2" data-path="data-view.html"><a href="data-view.html#embarked"><i class="fa fa-check"></i><b>4.4.2</b> Embarked</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="eda-view-data.html"><a href="eda-view-data.html"><i class="fa fa-check"></i><b>5</b> EDA —— View data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="eda-view-data.html"><a href="eda-view-data.html#simply-see-data"><i class="fa fa-check"></i><b>5.1</b> simply see data</a></li>
+<li class="chapter" data-level="5.2" data-path="eda-view-data.html"><a href="eda-view-data.html#missing-values-checking"><i class="fa fa-check"></i><b>5.2</b> Missing values checking</a></li>
+<li class="chapter" data-level="5.3" data-path="eda-view-data.html"><a href="eda-view-data.html#plot-missing-values-by-desctools"><i class="fa fa-check"></i><b>5.3</b> Plot Missing values By DescTools</a></li>
+<li class="chapter" data-level="5.4" data-path="eda-view-data.html"><a href="eda-view-data.html#plot-missing-values-by-dataexplorer"><i class="fa fa-check"></i><b>5.4</b> Plot Missing values By DataExplorer</a></li>
+<li class="chapter" data-level="5.5" data-path="eda-view-data.html"><a href="eda-view-data.html#values-distribution-checking"><i class="fa fa-check"></i><b>5.5</b> values distribution checking</a></li>
+<li class="chapter" data-level="5.6" data-path="eda-view-data.html"><a href="eda-view-data.html#correlation-among-variables"><i class="fa fa-check"></i><b>5.6</b> Correlation among variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="impute-missing-data.html"><a href="impute-missing-data.html"><i class="fa fa-check"></i><b>6</b> impute missing data</a></li>
+<li class="chapter" data-level="7" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html"><i class="fa fa-check"></i><b>7</b> Mod Build by randomForest</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#if-test-data-has-new-factor-levels"><i class="fa fa-check"></i><b>7.1</b> If test data has New factor levels ?</a></li>
+<li class="chapter" data-level="7.2" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#clean-new-level"><i class="fa fa-check"></i><b>7.2</b> clean new level</a></li>
+<li class="chapter" data-level="7.3" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#build-randomforest-model"><i class="fa fa-check"></i><b>7.3</b> build randomForest Model</a></li>
+<li class="chapter" data-level="7.4" data-path="mod-build-by-randomforest.html"><a href="mod-build-by-randomforest.html#model-assessment"><i class="fa fa-check"></i><b>7.4</b> Model assessment</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/cherryamme" target="blank">Published By Jesse</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A R Book For MachineLearning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="impute-missing-data" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> impute missing data</h1>
+<p>though there are a lot of good methods to impute missing values.</p>
+<p>In this part, I try to introduce imputate by randomforest.</p>
+<p>It seems like easier to used and It is a successful methods in Machine Learning area.</p>
+<p>We can just use package <code>randomforest</code> or <code>missForest</code>.</p>
+<p><code>randomforest</code> provide two methods:</p>
+<ol style="list-style-type: decimal">
+<li>na.roughfix()
+Impute Missing Values by median/mode.</li>
+<li>rfImpute()
+Impute missing values in predictor data using proximity from randomForest.</li>
+</ol>
+<p>First we use <code>na.roughfix()</code> to impute Fare|Embarked column by Median|Mode.</p>
+<p>Then we use <code>rfImpute()</code> to impute Age column by predictoe.</p>
+<p>In test dataset,we use function <code>na.roughfix</code> to impute Fare Values.
+and use <code>missForest</code> for impute missing Age Values easily</p>
+<p>In train dataset,it’s same.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="impute-missing-data.html#cb26-1" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>Fare<span class="ot">&lt;-</span><span class="fu">na.roughfix</span>(test<span class="sc">$</span>Fare)</span>
+<span id="cb26-2"><a href="impute-missing-data.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="impute-missing-data.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we can simplely cover missing as Mode.</span></span>
+<span id="cb26-4"><a href="impute-missing-data.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># idx&lt;-is.na(train$Embarked)</span></span>
+<span id="cb26-5"><a href="impute-missing-data.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># train[idx,&quot;Embarked&quot;]&lt;-&quot;S&quot;</span></span>
+<span id="cb26-6"><a href="impute-missing-data.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="impute-missing-data.html#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="impute-missing-data.html#cb26-8" aria-hidden="true" tabindex="-1"></a>train_nochr<span class="ot">&lt;-</span>train[<span class="sc">!</span><span class="fu">sapply</span>(train,is_character)]</span>
+<span id="cb26-9"><a href="impute-missing-data.html#cb26-9" aria-hidden="true" tabindex="-1"></a>test_nochr<span class="ot">&lt;-</span>test[<span class="sc">!</span><span class="fu">sapply</span>(test,is_character)]</span>
+<span id="cb26-10"><a href="impute-missing-data.html#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="impute-missing-data.html#cb26-11" aria-hidden="true" tabindex="-1"></a>train_imp<span class="ot">&lt;-</span><span class="fu">missForest</span>(<span class="fu">as.data.frame</span>(train_nochr))[[<span class="dv">1</span>]]<span class="sc">%&gt;%</span><span class="fu">tibble</span>()</span></code></pre></div>
+<pre><code>##   missForest iteration 1 in progress...done!
+##   missForest iteration 2 in progress...done!
+##   missForest iteration 3 in progress...done!
+##   missForest iteration 4 in progress...done!</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="impute-missing-data.html#cb28-1" aria-hidden="true" tabindex="-1"></a>test_imp<span class="ot">&lt;-</span><span class="fu">missForest</span>(<span class="fu">as.data.frame</span>(test_nochr))[[<span class="dv">1</span>]]<span class="sc">%&gt;%</span><span class="fu">tibble</span>()</span></code></pre></div>
+<pre><code>##   missForest iteration 1 in progress...done!
+##   missForest iteration 2 in progress...done!
+##   missForest iteration 3 in progress...done!</code></pre>
+<p>Congratulations !</p>
+<p>Now we get the full data without Missing values .</p>
+<pre><code>## 
+## Train_imp</code></pre>
+<pre><code>## # A tibble: 891 × 9
+##    PassengerId Survived Pclass Sex      Age SibSp Parch  Fare Embarked
+##          &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt;   
+##  1           1 0        3      male    22   1     0      7.25 S       
+##  2           2 1        1      female  38   1     0     71.3  C       
+##  3           3 1        3      female  26   0     0      7.92 S       
+##  4           4 1        1      female  35   1     0     53.1  S       
+##  5           5 0        3      male    35   0     0      8.05 S       
+##  6           6 0        3      male    36.5 0     0      8.46 Q       
+##  7           7 0        1      male    54   0     0     51.9  S       
+##  8           8 0        3      male     2   3     1     21.1  S       
+##  9           9 1        3      female  27   0     2     11.1  S       
+## 10          10 1        2      female  14   1     0     30.1  C       
+## # … with 881 more rows</code></pre>
+<pre><code>## 
+## Test_imp</code></pre>
+<pre><code>## # A tibble: 418 × 8
+##    PassengerId Pclass Sex      Age SibSp Parch  Fare Embarked
+##          &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt;   
+##  1         892 3      male    34.5 0     0      7.83 Q       
+##  2         893 3      female  47   1     0      7    S       
+##  3         894 2      male    62   0     0      9.69 Q       
+##  4         895 3      male    27   0     0      8.66 S       
+##  5         896 3      female  22   1     1     12.3  S       
+##  6         897 3      male    14   0     0      9.22 S       
+##  7         898 3      female  30   0     0      7.63 Q       
+##  8         899 2      male    26   1     1     29    S       
+##  9         900 3      female  18   0     0      7.23 C       
+## 10         901 3      male    21   2     0     24.2  S       
+## # … with 408 more rows</code></pre>
+<p>I check the missForest imputing model with randomForest
+with below code:</p>
+<pre><code>## missForest Impute</code></pre>
+<pre><code>## # A tibble: 2 × 9
+##   PassengerId Survived Pclass Sex      Age SibSp Parch  Fare Embarked
+##         &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt;   
+## 1          62 1        1      female    38 0     0        80 C       
+## 2         830 1        1      female    62 0     0        80 C</code></pre>
+<pre><code>## randomForest Impute</code></pre>
+<pre><code>## 1 2 
+## S S 
+## Levels: S C Q</code></pre>
+<p>We can see Embarked Values in missForestis ‘C,’but in randomForest model is ‘S.’</p>
+<p>It seems strange. missForest model is build on randomForestmodel.</p>
+<p>However,we get the data after imputing with missForest .</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="eda-view-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-build-by-randomforest.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-missing_impute.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
